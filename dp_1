@@ -1,0 +1,99 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "minimum coins needed for a given target"
+      ],
+      "metadata": {
+        "id": "1ayFQS9UxIIb"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "LDQboQcFxIFe"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "_a3YnFRlvy2p"
+      },
+      "outputs": [],
+      "source": [
+        "#    using   recursion\n",
+        "\n",
+        "def coins(arr,ind,target):\n",
+        "  if(ind==0):\n",
+        "    if(target%arr[0]==0):\n",
+        "      return target//arr[0]\n",
+        "    else:\n",
+        "      return float('inf')\n",
+        "  nottake=0+coins(arr,ind-1,target)\n",
+        "  take=float('inf')\n",
+        "  if(arr[ind]<=target):\n",
+        "    take=1+coins(arr,ind,target-arr[ind])\n",
+        "  return min(take,nottake)\n",
+        "arr=[1,2,3]\n",
+        "target=8\n",
+        "coins(arr,len(arr)-1,target)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#   using   tabulation\n",
+        "\n",
+        "def coins(arr,target):\n",
+        "  dp=[[0 for _ in range(target+1)] for _ in range(len(arr))]\n",
+        "  for j in range(0,target+1):\n",
+        "    if(j%arr[0]==0):\n",
+        "      dp[0][j]=j//arr[0]\n",
+        "    else:\n",
+        "      dp[0][j]=float('inf')\n",
+        "  for ind in range(1,len(arr)):\n",
+        "    for tar in range(target+1):\n",
+        "      nottake=0+dp[ind-1][tar]\n",
+        "      take=float('inf')\n",
+        "      if(arr[ind]<=tar):\n",
+        "        take=1+dp[ind][tar-arr[ind]]\n",
+        "      dp[ind][tar]=min(take,nottake)\n",
+        "  return dp[len(arr)-1][target]\n",
+        "arr=[1,2,3,4]\n",
+        "target=10\n",
+        "coins(arr,target)"
+      ],
+      "metadata": {
+        "id": "DxaroWRuw5WJ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "mLzral1iw6Rr"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
